@@ -4,12 +4,11 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
 const runMigrations = async () => {
-  console.log('Conectando ao banco de dados para migração...');
   const migrationClient = postgres({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'postgres',
+    host: process.env.DATABASE_URL,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
     ssl: 'require',
     max: 1,
   });
@@ -18,7 +17,7 @@ const runMigrations = async () => {
 
   console.log('Executando migrações...');
   await migrate(db, { migrationsFolder: './db/migrations' });
-  
+
   console.log('Migrações concluídas com sucesso!');
   await migrationClient.end();
   process.exit(0);
