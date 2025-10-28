@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 });
 
 // Rota principal para buscar os usuários
-app.get('/getUsers', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const allUsers = await db.query.users.findMany();
     res.json(allUsers);
