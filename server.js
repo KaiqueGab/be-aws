@@ -21,18 +21,6 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
-  try {
-    const user = await db.query.users.findFirst({
-      where: (users, { eq }) => eq(users.id, Number(req.params.id))
-    });
-    res.json(user);
-  } catch (error) {
-    console.error('Erro no servidor:', error);
-    res.status(500).json({ error: 'Erro ao buscar usuários.' });
-  }
-});
-
 app.listen(port, () => {
   console.log(`Backend com Drizzle rodando em http://localhost:${port}`);
 });
